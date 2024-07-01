@@ -1,0 +1,40 @@
+# Model arguments
+model_name_or_path: /dataset/industry_gpt/llm_infer/MetaMath/output/deepseek-math-7b-base-distill-data-374k-bs32-lr5e-6-linear-fix-sample0.8 
+torch_dtype: bfloat16
+
+# Data training arguments
+# For definitions, see: src/h4/training/config.py
+data_path: /dataset/industry_gpt/llm_infer/MetaMath/dpo_data_v2/filter_by_acc/predictions/generated_few_shot_v3_chosen_filter0.1.json
+dataset_splits:
+- train
+preprocessing_num_workers: 12
+
+# DPOTrainer arguments
+bf16: True
+beta: 0.05
+do_eval: False
+evaluation_strategy: 'no'
+eval_steps: 100
+gradient_accumulation_steps: 16
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+hub_model_id: step-dpo
+learning_rate: 5.0e-7
+log_level: info
+logging_steps: 1
+lr_scheduler_type: cosine
+max_length: 1024
+max_prompt_length: 512
+num_train_epochs: 2
+optim: adamw_torch
+output_dir: data/step-dpo
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 4
+push_to_hub: false
+report_to:
+- tensorboard
+- wandb
+save_strategy: "no"
+seed: 42
+warmup_ratio: 0.1
