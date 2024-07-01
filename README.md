@@ -9,7 +9,7 @@
 [Jiaya Jia](https://scholar.google.com/citations?user=XPAkzTEAAAAJ&hl=en)
  
 
-[![](https://img.shields.io/badge/Models-HuggingFace-pink)](https://huggingface.co/xinlai/Qwen2-72B-Instruct-Step-DPO)
+[![](https://img.shields.io/badge/Models-HuggingFace-pink)](https://huggingface.co/collections/xinlai/step-dpo-6682e12dfbbb2917c8161df7)
 [![](https://img.shields.io/badge/Dataset-Math--Step--DPO--10K-blue)](https://huggingface.co/datasets/xinlai/Math-Step-DPO-10K)
 [![](https://img.shields.io/badge/Paper-Arvix%20Link-green)](https://arxiv.org/pdf/2406.18629)
 [![](https://img.shields.io/badge/Demo-Huggingface-yellow)](http://103.170.5.190:7870/)
