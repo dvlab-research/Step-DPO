@@ -8,16 +8,11 @@ import os
 import argparse
 import torch
 import transformers
-import torch.nn.functional as F
-
-from transformers import AutoTokenizer, CLIPImageProcessor
 
 def parse_args(args):
   parser = argparse.ArgumentParser(description='LISA chat')
   parser.add_argument('--model_path_or_name', default='')
   parser.add_argument('--save_path', default='/data/step_dpo_history')
-  parser.add_argument('--load_in_8bit', action='store_true', default=False)
-  parser.add_argument('--load_in_4bit', action='store_true', default=False)
   return parser.parse_args(args)
 
 args = parse_args(sys.argv[1:])
@@ -62,32 +57,14 @@ Preprint Paper
 """
 
 
-## to be implemented
 def inference(input_str):
 
     ## filter out special chars
     input_str = bleach.clean(input_str)
 
-    # print("input_str: ", input_str, "input_image: ", input_image)
     print("input_str: ", input_str)
 
-    # ## input valid check
-    # if not re.match(r'^[A-Za-z ,.!?\'\"]+$', input_str) or len(input_str) < 1:
-    #     output_str = '[Error] Invalid input: ', input_str
-    #     # output_image = np.zeros((128, 128, 3))
-    #     ## error happened
-    #     output_image = cv2.imread('./resources/error_happened.png')[:,:,::-1]
-    #     return output_image, output_str
-
-    # Model Inference
-    # conv = get_default_conv_template("vicuna").copy()
-    # conv.messages = []
-
     prompt = input_str + "\nPlease reason step by step, and put your final answer within \\boxed{{}}." #input("Please input your prompt: ")
-    # prompt = DEFAULT_IMAGE_TOKEN + " " + prompt
-    # replace_token = DEFAULT_IMAGE_PATCH_TOKEN * image_token_len
-    # replace_token = DEFAULT_IM_START_TOKEN + replace_token + DEFAULT_IM_END_TOKEN
-    # prompt = prompt.replace(DEFAULT_IMAGE_TOKEN, replace_token)
 
     messages = [
         {"role": "user", "content": prompt}

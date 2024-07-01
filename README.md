@@ -33,9 +33,10 @@ Moreover, **Step-DPO**, when applied to **Qwen2-72B-Instruct**, achieves scores 
 4. [Installation](#installation)
 5. [Training](#training)
 6. [Evaluation](#evaluation)
-7. [Examples](#examples)
-8. [Acknowledgement](#acknowledgement)
-9. [Citation](#citation)
+7. [Deployment](#deployment)
+8. [Examples](#examples)
+9. [Acknowledgement](#acknowledgement)
+10. [Citation](#citation)
 
 ## News
 - [x] [2024.7.1] We release the demo of the model [Qwen2-7B-Instruct-Step-DPO](https://huggingface.co/xinlai/Qwen2-7B-Instruct-Step-DPO). Welcome to try it on [Demo](http://103.170.5.190:7870/)!
@@ -143,6 +144,13 @@ python eval_math.py \
     --save_path 'eval_results/math/qwen2-72b-instruct-step-dpo.json' \
     --prompt 'qwen2-boxed' \
     --tensor_parallel_size 8
+```
+
+## Deployment
+
+For deployment, please directly use the following command:
+```
+python3 app.py --model_path_or_name xinlai/Qwen2-7B-Instruct-Step-DPO
 ```
 
 ## Examples
