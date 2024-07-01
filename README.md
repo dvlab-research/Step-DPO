@@ -90,7 +90,7 @@ We use Qwen2, Qwen1.5, Llama-3, and DeepSeekMath models as the pre-trained weigh
 
 | Pre-trained weights                                                        |
 |:---------------------------------------------------------------------------|
-| [xinlai/DeepSeekMath-Base-SFT](https://huggingface.co/xinlai/DeepSeekMath-Base-SFT)           |
+| [Qwen/Qwen2-7B-Instruct](https://huggingface.co/Qwen/Qwen2-7B-Instruct)           |
 | [deepseek-ai/deepseek-math-7b-rl](https://huggingface.co/deepseek-ai/deepseek-math-7b-rl)           |
 | [xinlai/Qwen2-7B-SFT](https://huggingface.co/xinlai/Qwen2-7B-SFT)         |
 | [xinlai/Qwen1.5-32B-SFT](https://huggingface.co/xinlai/Qwen1.5-32B-SFT)         |
@@ -159,6 +159,8 @@ python3 app.py --model_path_or_name xinlai/Qwen2-7B-Instruct-Step-DPO
 ![image](imgs/example3.png)
 
 ![image](imgs/example1.png)
+
+![image](imgs/example4.png)
 
 ![image](imgs/example2.png)
 
