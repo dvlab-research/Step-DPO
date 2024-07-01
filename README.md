@@ -174,7 +174,7 @@ Many thanks for their efforts!
 If you find this project useful in your research, please consider citing us:
 
 ```
-@article{lai_stepdpo,
+@article{lai2024stepdpo,
   title={Step-DPO: Step-wise Preference Optimization for Long-chain Reasoning of LLMs},
   author={Xin Lai and Zhuotao Tian and Yukang Chen and Senqiao Yang and Xiangru Peng and Jiaya Jia},
   journal={arXiv:2406.18629},
