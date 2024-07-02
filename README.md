@@ -73,7 +73,7 @@ It is notable that the model **Qwen2-72B-Instruct + Step-DPO** could achieve **7
 |        Qwen2-72B-Instruct        | 72B  | 69.4 | 92.4 | 47.0 |                              -                               |
 |  **Qwen2-72B-Instruct + Step-DPO**   | 72B  | **70.8 (+1.4)** | **94.0 (+1.6)**  | **50.1 (+3.1)** | [HF](https://huggingface.co/xinlai/Qwen2-72B-Instruct-Step-DPO) |
 
-Note: **Odyssey-MATH** consists of competition-level math problems.
+Note: **Odyssey-MATH** contains competition-level math problems.
 
 ## Installation
 ```
