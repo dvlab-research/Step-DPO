@@ -101,8 +101,6 @@ We use Qwen2, Qwen1.5, Llama-3, and DeepSeekMath models as the pre-trained weigh
 
 **Note**: models with '-SFT' are supervised fine-tuned by our 299K SFT data based on open-source base models. You could perform Step-DPO on either our SFT models or existing open-source instruct models.
 
-### Fine-tuning
-
 Here is a script example to perform Step-DPO on `Qwen/Qwen2-72B-Instruct`:
 
 ```shell
