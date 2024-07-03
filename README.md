@@ -48,7 +48,7 @@ We build a 10K math preference datasets for Step-DPO, which can be downloaded fr
 
 | Dataset                  | Size   | Link                                                         |
 | ------------------------ | ------ | ------------------------------------------------------------ |
-| xinlai/Math-Step-DPO-10K | 10,795 | [Hugging Face](https://huggingface.co/datasets/xinlai/Math-Step-DPO-10K) |
+| xinlai/Math-Step-DPO-10K | 10,795 | 🤗 [Hugging Face](https://huggingface.co/datasets/xinlai/Math-Step-DPO-10K) |
 
 ## Models
 
