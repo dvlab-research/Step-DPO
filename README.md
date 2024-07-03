@@ -57,21 +57,21 @@ It is notable that the model **Qwen2-72B-Instruct + Step-DPO** could achieve **7
 |              Models              | Size | MATH | GSM8K | Odyssey-MATH |                            Link                             |
 | :------------------------------ | :--: | :----: | :---: | :---: | :----------------------------------------------------------: |
 |         Qwen2-7B-Instruct          |  7B  | 53.0 | 85.5  | - |                              -                               |
-|    **Qwen2-7B-Instruct + Step-DPO**    |  7B  | **58.6 (+5.6)** | **87.9 (+2.4)** |  -  | [HF](https://huggingface.co/xinlai/Qwen2-7B-Instruct-Step-DPO) |
+|    **Qwen2-7B-Instruct + Step-DPO**    |  7B  | **58.6 (+5.6)** | **87.9 (+2.4)** |  -  | 🤗 [HF](https://huggingface.co/xinlai/Qwen2-7B-Instruct-Step-DPO) |
 |         DeepSeekMath-RL          |  7B  | 51.7 | 88.2  | - |                              -                               |
-|    **DeepSeekMath-RL + Step-DPO**    |  7B  | **53.2 (+1.5)** | **88.7 (+0.5)** |  -  | [HF](https://huggingface.co/xinlai/DeepSeekMath-RL-Step-DPO) |
-|           Qwen2-7B-SFT           |  7B  | 54.8 | 88.2  |  -  |  [HF](https://huggingface.co/xinlai/Qwen2-7B-SFT)      |
-|     **Qwen2-7B-SFT + Step-DPO**      |  7B  | **55.8 (+1.0)** | **88.5 (+0.3)**  | - |[HF](https://huggingface.co/xinlai/Qwen2-7B-SFT-Step-DPO) |
-|         Qwen1.5-32B-SFT          | 32B  | 54.9 | 90.0  |  -  | [HF](https://huggingface.co/xinlai/Qwen1.5-32B-SFT)    |
-|    **Qwen1.5-32B-SFT + Step-DPO**    | 32B  | **56.9 (+2.0)** | **90.9 (+0.9)**  |  - |[HF](https://huggingface.co/xinlai/Qwen1.5-32B-SFT-Step-DPO) |
-|        Qwen2-57B-A14B-SFT        | 57B  | 54.6 | 89.8  |  - | [HF](https://huggingface.co/xinlai/Qwen2-57B-A14B-SFT)   |
-|  **Qwen2-57B-A14B-SFT + Step-DPO**   | 57B  | **56.5 (+1.9)** | **90.0 (+0.2)**  |  - |[HF](https://huggingface.co/xinlai/Qwen2-57B-A14B-SFT-Step-DPO) |
-|         Llama-3-70B-SFT          | 70B  | 56.9 | 92.2  |  - |   [HF](https://huggingface.co/xinlai/Llama-3-70B-SFT)    |
-|    **Llama-3-70B-SFT + Step-DPO**    | 70B  | **59.5 (+2.6)** | **93.3 (+1.1)**  |  - |[HF](https://huggingface.co/xinlai/Llama-3-70B-SFT-Step-DPO) |
-|          Qwen2-72B-SFT           | 72B  | 61.7 | 92.9  |  44.2  |   [HF](https://huggingface.co/xinlai/Qwen2-72B-SFT)     |
-|     **Qwen2-72B-SFT + Step-DPO**     | 72B  | **64.7 (+3.0)** | **93.9 (+1.0)**  | **47.0 (+2.8)** | [HF](https://huggingface.co/xinlai/Qwen2-72B-SFT-Step-DPO) |
+|    **DeepSeekMath-RL + Step-DPO**    |  7B  | **53.2 (+1.5)** | **88.7 (+0.5)** |  -  | 🤗 [HF](https://huggingface.co/xinlai/DeepSeekMath-RL-Step-DPO) |
+|           Qwen2-7B-SFT           |  7B  | 54.8 | 88.2  |  -  |  🤗 [HF](https://huggingface.co/xinlai/Qwen2-7B-SFT)      |
+|     **Qwen2-7B-SFT + Step-DPO**      |  7B  | **55.8 (+1.0)** | **88.5 (+0.3)**  | - |🤗 [HF](https://huggingface.co/xinlai/Qwen2-7B-SFT-Step-DPO) |
+|         Qwen1.5-32B-SFT          | 32B  | 54.9 | 90.0  |  -  | 🤗 [HF](https://huggingface.co/xinlai/Qwen1.5-32B-SFT)    |
+|    **Qwen1.5-32B-SFT + Step-DPO**    | 32B  | **56.9 (+2.0)** | **90.9 (+0.9)**  |  - |🤗 [HF](https://huggingface.co/xinlai/Qwen1.5-32B-SFT-Step-DPO) |
+|        Qwen2-57B-A14B-SFT        | 57B  | 54.6 | 89.8  |  - | 🤗 [HF](https://huggingface.co/xinlai/Qwen2-57B-A14B-SFT)   |
+|  **Qwen2-57B-A14B-SFT + Step-DPO**   | 57B  | **56.5 (+1.9)** | **90.0 (+0.2)**  |  - |🤗 [HF](https://huggingface.co/xinlai/Qwen2-57B-A14B-SFT-Step-DPO) |
+|         Llama-3-70B-SFT          | 70B  | 56.9 | 92.2  |  - |  🤗 [HF](https://huggingface.co/xinlai/Llama-3-70B-SFT)    |
+|    **Llama-3-70B-SFT + Step-DPO**    | 70B  | **59.5 (+2.6)** | **93.3 (+1.1)**  |  - |🤗 [HF](https://huggingface.co/xinlai/Llama-3-70B-SFT-Step-DPO) |
+|          Qwen2-72B-SFT           | 72B  | 61.7 | 92.9  |  44.2  |   🤗 [HF](https://huggingface.co/xinlai/Qwen2-72B-SFT)     |
+|     **Qwen2-72B-SFT + Step-DPO**     | 72B  | **64.7 (+3.0)** | **93.9 (+1.0)**  | **47.0 (+2.8)** | 🤗 [HF](https://huggingface.co/xinlai/Qwen2-72B-SFT-Step-DPO) |
 |        Qwen2-72B-Instruct        | 72B  | 69.4 | 92.4 | 47.0 |                              -                               |
-|  **Qwen2-72B-Instruct + Step-DPO**   | 72B  | **70.8 (+1.4)** | **94.0 (+1.6)**  | **50.1 (+3.1)** | [HF](https://huggingface.co/xinlai/Qwen2-72B-Instruct-Step-DPO) |
+|  **Qwen2-72B-Instruct + Step-DPO**   | 72B  | **70.8 (+1.4)** | **94.0 (+1.6)**  | **50.1 (+3.1)** | 🤗 [HF](https://huggingface.co/xinlai/Qwen2-72B-Instruct-Step-DPO) |
 
 Note: **Odyssey-MATH** contains competition-level math problems.
 
