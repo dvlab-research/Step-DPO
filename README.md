@@ -154,7 +154,7 @@ python3 app.py --model_path_or_name xinlai/Qwen2-7B-Instruct-Step-DPO
 
 ## Examples
 
-![image](imgs/example3.png)
+![image](imgs/example5.jpg)
 
 ![image](imgs/example1.png)
 
