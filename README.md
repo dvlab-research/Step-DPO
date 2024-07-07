@@ -50,6 +50,30 @@ We build a 10K math preference datasets for Step-DPO, which can be downloaded fr
 | ------------------------ | ------ | ------------------------------------------------------------ |
 | xinlai/Math-Step-DPO-10K | 10,795 | 🤗 [Hugging Face](https://huggingface.co/datasets/xinlai/Math-Step-DPO-10K) |
 
+## Data Construction Pipeline
+
+We release the scripts to construct the Step-DPO data, as shown in the `data_pipeline/` directory. Please follow the instructions below.
+
+```
+cd Step-DPO
+
+# Step 1: Error Collection
+# Before executing, please set the MODEL_PATH, PRED_PATH, EVAL_PROMPT
+bash data_pipeline/step1.sh
+
+# Step 2: Locate Erroneous Step by GPT-4o
+# Before executing, please set the OPENAI_BASE_URL, OPENAI_API_KEY
+bash data_pipeline/step2.sh
+
+# Step 3: Rectify by the model itself
+# Before executing, please set the MODEL_PATH, EVAL_PROMPT, JSON_FILE, PRED_PATH, SAVE_PATH
+bash data_pipeline/step3.sh
+
+# Finally, Get the resulting dataset
+# Before executing, please set the EVAL_PROMPT, JSON_FILE, PRED_PATH, SAVE_PATH
+bash data_pipeline/merge.sh
+```
+
 ## Models
 
 It is notable that the model **Qwen2-72B-Instruct + Step-DPO** could achieve **70.8%** and **94.0%** on MATH and GSM8K test sets. Step-DPO also brings considerable improvement over various models as follows. Welcome to download and use.
