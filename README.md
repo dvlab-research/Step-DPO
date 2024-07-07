@@ -33,12 +33,14 @@ Moreover, **Step-DPO**, when applied to **Qwen2-72B-Instruct**, achieves scores 
 4. [Installation](#installation)
 5. [Training](#training)
 6. [Evaluation](#evaluation)
-7. [Deployment](#deployment)
-8. [Examples](#examples)
-9. [Acknowledgement](#acknowledgement)
-10. [Citation](#citation)
+7. [Data Construction Pipeline](#data-construction-pipeline)
+8. [Deployment](#deployment)
+9. [Examples](#examples)
+10. [Acknowledgement](#acknowledgement)
+11. [Citation](#citation)
 
 ## News
+- [x] [2024.7.7] We release the scripts for [Data Construction Pipeline](#data-construction-pipeline)! You can construct dataset on your own with these scripts!
 - [x] [2024.7.1] We release the demo of the model [Qwen2-7B-Instruct-Step-DPO](https://huggingface.co/xinlai/Qwen2-7B-Instruct-Step-DPO). Welcome to try it on [Demo](http://103.170.5.190:7870/)!
 - [x] [2024.6.28] We release the pre-print of [Step-DPO](https://arxiv.org/pdf/2406.18629) and this GitHub repo, including training/evaluation scripts, pre-trained models and data.
 
@@ -49,30 +51,6 @@ We build a 10K math preference datasets for Step-DPO, which can be downloaded fr
 | Dataset                  | Size   | Link                                                         |
 | ------------------------ | ------ | ------------------------------------------------------------ |
 | xinlai/Math-Step-DPO-10K | 10,795 | 🤗 [Hugging Face](https://huggingface.co/datasets/xinlai/Math-Step-DPO-10K) |
-
-## Data Construction Pipeline
-
-We release the scripts to construct the Step-DPO data, as shown in the `data_pipeline/` directory. Please follow the instructions below.
-
-```
-cd Step-DPO
-
-# Step 1: Error Collection
-# Before executing, please set the MODEL_PATH, PRED_PATH, EVAL_PROMPT
-bash data_pipeline/step1.sh
-
-# Step 2: Locate Erroneous Step by GPT-4o
-# Before executing, please set the OPENAI_BASE_URL, OPENAI_API_KEY
-bash data_pipeline/step2.sh
-
-# Step 3: Rectify by the model itself
-# Before executing, please set the MODEL_PATH, EVAL_PROMPT, JSON_FILE, PRED_PATH, SAVE_PATH
-bash data_pipeline/step3.sh
-
-# Finally, Get the resulting dataset
-# Before executing, please set the EVAL_PROMPT, JSON_FILE, PRED_PATH, SAVE_PATH
-bash data_pipeline/merge.sh
-```
 
 ## Models
 
@@ -166,6 +144,30 @@ python eval_math.py \
     --save_path 'eval_results/math/qwen2-72b-instruct-step-dpo.json' \
     --prompt 'qwen2-boxed' \
     --tensor_parallel_size 8
+```
+
+## Data Construction Pipeline
+
+We release the scripts to construct the Step-DPO data, as shown in the `data_pipeline/` directory. Please follow the instructions below.
+
+```
+cd Step-DPO
+
+# Step 1: Error Collection
+# Before executing, please set the MODEL_PATH, PRED_PATH, EVAL_PROMPT
+bash data_pipeline/step1.sh
+
+# Step 2: Locate Erroneous Step by GPT-4o
+# Before executing, please set the OPENAI_BASE_URL, OPENAI_API_KEY
+bash data_pipeline/step2.sh
+
+# Step 3: Rectify by the model itself
+# Before executing, please set the MODEL_PATH, EVAL_PROMPT, JSON_FILE, PRED_PATH, SAVE_PATH
+bash data_pipeline/step3.sh
+
+# Finally, Get the resulting dataset
+# Before executing, please set the EVAL_PROMPT, JSON_FILE, PRED_PATH, SAVE_PATH
+bash data_pipeline/merge.sh
 ```
 
 ## Deployment
