@@ -1,10 +1,10 @@
 # Model arguments
-model_name_or_path: /dataset/industry_gpt/llm_infer/MetaMath/output/deepseek-math-7b-base-distill-data-374k-bs32-lr5e-6-linear-fix-sample0.8 
+model_name_or_path: 
 torch_dtype: bfloat16
 
 # Data training arguments
 # For definitions, see: src/h4/training/config.py
-data_path: /dataset/industry_gpt/llm_infer/MetaMath/dpo_data_v2/filter_by_acc/predictions/generated_few_shot_v3_chosen_filter0.1.json
+data_path: 
 dataset_splits:
 - train
 preprocessing_num_workers: 12
