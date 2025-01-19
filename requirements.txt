@@ -1,7 +1,6 @@
 jsonlines
-numpy==1.26.4
-trl==0.8.5
-git+https://github.com/huggingface/alignment-handbook@606d2e9
+trl==0.12.2
+alignment-handbook @ git+https://github.com/huggingface/alignment-handbook
 wandb
 deepspeed
 accelerate

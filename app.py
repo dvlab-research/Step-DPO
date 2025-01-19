@@ -1,13 +1,13 @@
-import numpy as np
 
-import gradio as gr
-import re
-import bleach
-import sys
-import os
 import argparse
+import os
+import sys
+
+import bleach
+import gradio as gr
 import torch
 import transformers
+
 
 def parse_args(args):
   parser = argparse.ArgumentParser(description='LISA chat')
@@ -86,7 +86,7 @@ def inference(input_str):
         output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
     ]
     text_output = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
-    
+
     return text_output
 
 
@@ -98,7 +98,7 @@ demo = gr.Interface(
     ],
     outputs=[
         gr.Textbox(
-            lines=1, placeholder=None, label='Text Output'),        
+            lines=1, placeholder=None, label='Text Output'),
     ],
     title=title,
     description=description,

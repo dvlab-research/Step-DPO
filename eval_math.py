@@ -1,15 +1,15 @@
 import argparse
 import json
-import pdb
-import jsonlines
 import os
-
-from evaluation.eval.eval_script import eval_math 
-from evaluation.data_processing.answer_extraction import extract_math_answer
-
-from vllm import LLM, SamplingParams
-import torch
+import pdb
 import sys
+
+import jsonlines
+import torch
+from evaluation.data_processing.answer_extraction import extract_math_answer
+from evaluation.eval.eval_script import eval_math
+from vllm import LLM, SamplingParams
+
 MAX_INT = sys.maxsize
 INVALID_ANS = "[invalid]"
 
@@ -29,7 +29,7 @@ def batch_data(data_list, batch_size=1):
     return batch_data
 
 def test_hendrycks_math(model, data_path, remainder=0, n_groups=MAX_INT, batch_size=1, tensor_parallel_size=1, args=None):
-    
+
     save_path = args.save_path
     hendrycks_math_ins = []
     hendrycks_math_answers = []
@@ -182,8 +182,8 @@ def test_hendrycks_math(model, data_path, remainder=0, n_groups=MAX_INT, batch_s
     try:
         with open(save_path, "w+") as f:
             json.dump(to_save_list, f, indent=4)
-    except:
-        import pdb; pdb.set_trace()
+    except Exception:
+        pdb.set_trace()
 
 def parse_args():
     parser = argparse.ArgumentParser()

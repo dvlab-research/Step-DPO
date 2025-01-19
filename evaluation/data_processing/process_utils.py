@@ -1,6 +1,6 @@
 import regex
-
 from data_processing.answer_extraction import extract_math_answer, strip_string
+
 
 def process_gsm8k_test(item):
     sample = {
@@ -18,7 +18,7 @@ def process_math_test(item):
     question = item["problem"]
     try:
         answer = extract_math_answer(question, item['solution'], task="cot")
-    except:
+    except Exception:
         return
     sample = {
         "dataset": "math-cot",

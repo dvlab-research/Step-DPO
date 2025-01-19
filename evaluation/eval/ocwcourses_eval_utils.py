@@ -1,10 +1,10 @@
 import re
+import signal
+
 import numpy as np
 import sympy
 from sympy.core.sympify import SympifyError
 from sympy.parsing.latex import parse_latex
-
-import signal
 
 INVALID_ANSWER = "[invalidanswer]"
 
@@ -57,13 +57,13 @@ def normalize_numeric(s):
     s = s.strip("$")
     try:
         return float(eval(s))
-    except:
+    except Exception:
         try:
             expr = parse_latex(s)
             if expr.is_number:
                 return float(expr)
             return INVALID_ANSWER
-        except:
+        except Exception:
             return INVALID_ANSWER
 
 def numeric_equality(n1, n2, threshold=0.01):
@@ -93,7 +93,7 @@ def normalize_symbolic_equation(s):
             return INVALID_ANSWER
         else:
             return maybe_expression
-    except:
+    except Exception:
         return INVALID_ANSWER
 
 class SymbolicMathMixin:
@@ -205,7 +205,7 @@ class SymbolicMathMixin:
             with timeout(seconds=time_limit):
                 parsed = parse_latex(text)
         except (
-            # general error handling: there is a long tail of possible sympy/other 
+            # general error handling: there is a long tail of possible sympy/other
             # errors we would like to catch
             Exception
         ) as e:
@@ -236,11 +236,11 @@ class SymbolicMathMixin:
                 except (SympifyError, ValueError, TypeError) as e:
                     print(f"Failed to simplify {x1}-{x2} with {e}")
                     return False
-        except TimeoutError as e:
+        except TimeoutError:
             print(f"Timed out comparing {x1} and {x2}")
             return False
         except Exception as e:
-            print(f"failed on unrecognized exception {e}")
+            print(f"Failed on unrecognized exception: {e}")
             return False
 
     def is_tex_equiv(self, x1: str, x2: str, time_limit=5) -> bool:
@@ -251,13 +251,13 @@ class SymbolicMathMixin:
         following the (Lewkowycz et al. 2022) methodology.
         """
         if x1 == x2:
-            # don't resort to sympy if we have full string match, post-normalization 
+            # don't resort to sympy if we have full string match, post-normalization
             return True
-        else: 
+        else:
             return False
         parsed_x2 = self.parse_tex(x2)
         if not parsed_x2:
-            # if our reference fails to parse into a Sympy object, 
+            # if our reference fails to parse into a Sympy object,
             # we forgo parsing + checking our generated answer.
             return False
         return self.is_exp_equiv(self.parse_tex(x1), parsed_x2, time_limit=time_limit)

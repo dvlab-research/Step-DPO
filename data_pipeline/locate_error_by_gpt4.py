@@ -1,12 +1,11 @@
 import argparse
-import openai
-import json
 import glob
+import json
 import os
-import tqdm
-import sys
-import jsonlines
 import time
+
+import openai
+import tqdm
 
 client = openai.OpenAI(
     base_url=os.getenv("OPENAI_BASE_URL"),
@@ -36,14 +35,14 @@ def main(args):
         os.mkdir(args.save_dir)
 
     save_dir = args.save_dir
-    visited_dirs = save_dir if len(visited_dirs) == 0 else args.visited_dirs
+    visited_dirs = save_dir if len(args.visited_dirs) == 0 else args.visited_dirs
     json_files = sorted(glob.glob(args.json_files))
 
     pred_data = []
     for json_file in json_files:
         with open(json_file) as f:
             for item in json.load(f):
-                if item['result'] == False:
+                if not item['result']:
                     pred_data.append(item)
 
     n_groups = args.n_groups
@@ -80,7 +79,7 @@ def main(args):
         # skip the visited questions
         if any([os.path.exists(os.path.join(visited_dir, "{}.json".format(idx))) for visited_dir in visited_dirs.split("||")]):
             continue
-        
+
         completion = "Step 1: " + pred_dict['completion']
         instruction = prompt.format(problem=question, solution=pred_dict['gt_output'].replace("\n\n", "\n"), answer=completion.replace("\n\n", "\n"))
 

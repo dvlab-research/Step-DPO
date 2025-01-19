@@ -1,16 +1,17 @@
-import os
-import io
-from contextlib import redirect_stdout
-import pickle
-import regex
 import copy
-from typing import Any, Dict, Optional
-import multiprocess
-from pebble import ProcessPool
-from concurrent.futures import TimeoutError
-from functools import partial
+import io
+import pickle
 import traceback
+from concurrent.futures import TimeoutError
+from contextlib import redirect_stdout
+from functools import partial
+from typing import Any, Dict, Optional
+
+import multiprocess
+import regex
+from pebble import ProcessPool
 from timeout_decorator import timeout
+
 
 class GenericRuntime:
     GLOBAL_DICT = {}
@@ -27,14 +28,14 @@ class GenericRuntime:
         if regex.search(r'(\s|^)?input\(', code_piece) or regex.search(r'(\s|^)?os.system\(', code_piece):
             raise RuntimeError()
         exec(code_piece, self._global_vars)
-        
+
     def eval_code(self, expr: str) -> Any:
         return eval(expr, self._global_vars)
-    
+
     def inject(self, var_dict: Dict[str, Any]) -> None:
         for k, v in var_dict.items():
             self._global_vars[k] = v
-    
+
     @property
     def answer(self):
         return self._global_vars['answer']
@@ -102,7 +103,7 @@ class PythonExecutor:
             exec_info = ""
             str(result)
             pickle.dumps(result) # serialization check
-        except:
+        except Exception:
             # traceback.print_exc()
             result = ''
             concise_exec_info = traceback.format_exc().split('\n')[-2]
@@ -152,7 +153,7 @@ class PythonExecutor:
                     all_exec_results.append(result)
                 except StopIteration:
                     break
-                except TimeoutError as error:
+                except TimeoutError:
                     all_exec_results.append(("", "Timeout Error", "Timeout Error"))
                 except Exception as error:
                     print(error)

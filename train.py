@@ -1,36 +1,32 @@
 import logging
 import random
 import sys
+from dataclasses import dataclass, field
 
 import torch
 import transformers
-from transformers import AutoModelForCausalLM, set_seed
-from dataclasses import dataclass, field
-
 from alignment import (
     DataArguments,
     DPOConfig,
     H4ArgumentParser,
     ModelArguments,
     get_checkpoint,
-    get_datasets,
     get_kbit_device_map,
     get_peft_config,
     get_quantization_config,
     get_tokenizer,
 )
-from stepdpo_trainer import StepDPOTrainer
-
 from datasets import load_dataset
-
+from stepdpo_trainer import StepDPOTrainer
+from transformers import set_seed
 
 logger = logging.getLogger(__name__)
 
 def apply_step_wise_chat_template(
-    example, 
-    tokenizer, 
-    task, 
-    prompt, 
+    example,
+    tokenizer,
+    task,
+    prompt,
     auto_insert_empty_system_msg: bool = True
 ):
     assert task in ["dpo"]

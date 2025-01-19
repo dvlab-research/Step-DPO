@@ -1,12 +1,14 @@
 # Modified from trl/trl/trainer/dpo_trainer.py
-from torch import nn
-from trl import DPOTrainer
+from typing import Dict, Optional, Union
+
+import torch
 from transformers import PreTrainedModel
-from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Union
+from trl import DPOTrainer
+
 
 class StepDPOTrainer(DPOTrainer):
 
-    def tokenize_row(self, feature, model: Optional[Union[PreTrainedModel, nn.Module]] = None) -> Dict:
+    def tokenize_row(self, feature, model: Optional[Union[PreTrainedModel, torch.nn.Module]] = None) -> Dict:
         """Tokenize a single row from a DPO specific dataset.
 
         At this stage, we don't convert to PyTorch tensors yet; we just handle the truncation

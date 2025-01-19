@@ -1,5 +1,7 @@
 import re
+
 import regex
+
 
 def _fix_fracs(string):
     substrs = string.split("\\frac")
@@ -13,7 +15,7 @@ def _fix_fracs(string):
             else:
                 try:
                     assert len(substr) >= 2
-                except:
+                except Exception:
                     return string
                 a = substr[0]
                 b = substr[1]
@@ -46,7 +48,7 @@ def _fix_a_slash_b(string):
         assert string == "{}/{}".format(a, b)
         new_string = "\\frac{" + str(a) + "}{" + str(b) + "}"
         return new_string
-    except:
+    except Exception:
         return string
 
 
@@ -129,7 +131,7 @@ def strip_string(string):
         string = string.replace("inf", "\\infty")
     string = string.replace("+\\inity", "\\infty")
 
-    # and 
+    # and
     # string = string.replace("and", "")
     string = string.replace("\\mathbf", "")
     string = string.replace("\\mathrm", "")
@@ -140,7 +142,7 @@ def strip_string(string):
     # quote
     string.replace("'", "")
     string.replace("\"", "")
-    
+
     # i, j
     if "j" in string and "i" not in string:
         string = string.replace("j", "i")
@@ -239,7 +241,7 @@ def extract_answer(pred_str, exhaust=False):
     for ans in pred:
         # ans = ans.strip().split("\n")[0]
         ans = ans.strip()
-        
+
         ans = ans.lstrip(":")
         ans = ans.rstrip(".")
         ans = ans.rstrip("/")
@@ -338,7 +340,7 @@ def extract_cmath_few_shot_test(question, reasoning, task):
         ans = ans.strip("。")
         try:
             ans = [s for s in regex.findall(r'-?\d+\.?\d*', ans)][-1]
-        except:
+        except Exception:
             print(f"DEBUG CMATH: {reasoning}", flush=True)
             ans = "[invalid]"
     else:

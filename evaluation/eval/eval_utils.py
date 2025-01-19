@@ -1,15 +1,19 @@
 import multiprocessing
-from math import isclose
-import numpy as np
-from typing import Union, Any, Dict
-
-from sympy import simplify, N
-from sympy.parsing.sympy_parser import parse_expr
-from sympy.parsing.latex import parse_latex
 import re
-import regex
+from math import isclose
+from typing import Any, Dict, Union
 
-from evaluation.data_processing.answer_extraction import extract_answer, extract_program_output, strip_string
+import numpy as np
+import regex
+from evaluation.data_processing.answer_extraction import (
+    extract_answer,
+    extract_program_output,
+    strip_string,
+)
+from sympy import N, simplify
+from sympy.parsing.latex import parse_latex
+from sympy.parsing.sympy_parser import parse_expr
+
 
 def extract_program(result: str, last_only=True):
     """
@@ -118,14 +122,14 @@ def parse_digits(num):
     num = regex.sub(',', '', str(num))
     try:
         return float(num)
-    except:
+    except Exception:
         if num.endswith('%'):
             num = num[:-1]
             if num.endswith('\\'):
                 num = num[:-1]
             try:
                 return float(num) / 100
-            except:
+            except Exception:
                 pass
     return None
 
@@ -139,7 +143,7 @@ def normalize_prediction(prediction):
         if is_digit(prediction):
             prediction = np.round(float(str(prediction).replace(",", "")), 6)
         return str(prediction)
-    except:
+    except Exception:
         pass
 
     # 2. symbolic equal
@@ -148,7 +152,6 @@ def normalize_prediction(prediction):
     ## deal with [], (), {}
     brackets = []
     while prediction.startswith("[") and prediction.endswith("]") or (prediction.startswith("(") and prediction.endswith(")")):
-        bracket = prediction[0]
         prediction = prediction[1:-1]
     if brackets and ',' in prediction:
         pred_parts = [normalize_prediction(part) for part in prediction.split(",")]
@@ -166,7 +169,7 @@ def normalize_prediction(prediction):
         for f in [parse_latex, parse_expr]:
             try:
                 return f(s)
-            except:
+            except Exception:
                 pass
         return s
 
@@ -194,7 +197,7 @@ def math_equal(prediction: Union[bool, float, str],
 
     if "^{216}" in prediction:
         return False
-        
+
     print("prediction: {}, reference: {}".format(
         prediction, reference
     ))
@@ -219,7 +222,7 @@ def math_equal(prediction: Union[bool, float, str],
                 except Exception:
                     continue
             return False
-    except:
+    except Exception:
         pass
 
     if not prediction and prediction not in [0, False]:
@@ -292,7 +295,7 @@ def symbolic_equal(a, b):
         for f in [parse_latex, parse_expr]:
             try:
                 return f(s)
-            except:
+            except Exception:
                 pass
         return s
     a = _parse(a)
@@ -301,32 +304,32 @@ def symbolic_equal(a, b):
     try:
         if simplify(a-b) == 0:
             return True
-    except:
+    except Exception:
         pass
 
     try:
         if isclose(N(a), N(b), abs_tol=1e-3):
             return True
-    except:
+    except Exception:
         pass
     return False
 
 
-def symbolic_equal_process(a, b, output_queue):  
+def symbolic_equal_process(a, b, output_queue):
     result = symbolic_equal(a, b)
-    output_queue.put(result)  
+    output_queue.put(result)
 
 
-def call_with_timeout(func, *args, timeout=1, **kwargs):  
-    output_queue = multiprocessing.Queue()  
-    process_args = args + (output_queue,)  
-    process = multiprocessing.Process(target=func, args=process_args, kwargs=kwargs)  
-    process.start()  
-    process.join(timeout)  
-  
-    if process.is_alive():  
+def call_with_timeout(func, *args, timeout=1, **kwargs):
+    output_queue = multiprocessing.Queue()
+    process_args = args + (output_queue,)
+    process = multiprocessing.Process(target=func, args=process_args, kwargs=kwargs)
+    process.start()
+    process.join(timeout)
+
+    if process.is_alive():
         process.terminate()
-        process.join()  
-        return False  
-  
+        process.join()
+        return False
+
     return output_queue.get()

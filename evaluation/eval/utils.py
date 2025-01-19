@@ -1,6 +1,7 @@
 import torch
 import tqdm
-from transformers import StoppingCriteria, GenerationConfig
+from transformers import GenerationConfig, StoppingCriteria
+
 
 class KeyWordsCriteria(StoppingCriteria):
     def __init__(self, stop_id_sequences, tokenizer, prompt_length):
@@ -27,7 +28,7 @@ class KeyWordsCriteria(StoppingCriteria):
                     break
             sequences_should_be_stopped.append(should_be_stopped)
         return all(sequences_should_be_stopped)
-    
+
 @torch.no_grad()
 def generate_completions(model, tokenizer, prompts, batch_size=1, stop_id_sequences=None, end_of_generation_id_sequence=None, disable_tqdm=False, **generation_kwargs):
     generations = []
@@ -66,7 +67,6 @@ def generate_completions(model, tokenizer, prompts, batch_size=1, stop_id_sequen
             # so some outputs still have the stop sequence, which we need to remove.
             if stop_id_sequences:
                 for output_idx in range(batch_outputs.shape[0]):
-                    finish = False
                     for token_idx in range(batch_input_ids.shape[1], batch_outputs.shape[1]):
                         if any(tokenizer.decode(batch_outputs[output_idx, token_idx: token_idx + len(stop_sequence) + 3]).startswith(stop_sequence) for stop_sequence in stop_sequences):
                             if end_of_generation_id_sequence is not None and tokenizer.decode(batch_outputs[output_idx, token_idx: token_idx + len(end_of_generation_id_sequence) + 3]).startswith(end_of_generation_sequence):
@@ -149,7 +149,7 @@ def score_completions(model, tokenizer, scoring_examples, disable_tqdm=False):
     - prompt: the prompt to score
     - completions: a list of completions to score
     '''
-    
+
     if not disable_tqdm:
         progress = tqdm.tqdm(total=len(scoring_examples), desc="Scoring Completions")
 
@@ -194,17 +194,17 @@ def score_completions(model, tokenizer, scoring_examples, disable_tqdm=False):
 
 
 def load_hf_lm_and_tokenizer(
-        model_name_or_path, 
-        tokenizer_name_or_path=None, 
-        device_map="auto", 
-        load_in_8bit=False, 
+        model_name_or_path,
+        tokenizer_name_or_path=None,
+        device_map="auto",
+        load_in_8bit=False,
         load_in_half=False,
         gptq_model=False,
         use_fast_tokenizer=True,
         padding_side="left",
     ):
-    
-    from transformers import AutoModelForCausalLM, AutoModel, AutoTokenizer
+
+    from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer
 
     if not tokenizer_name_or_path:
         tokenizer_name_or_path = model_name_or_path
@@ -233,11 +233,11 @@ def load_hf_lm_and_tokenizer(
         model_wrapper = AutoGPTQForCausalLM.from_quantized(
             model_name_or_path, device="cuda:0", use_triton=True
         )
-        model = model_wrapper.model  
+        model = model_wrapper.model
     elif load_in_8bit:
         model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path, 
-            device_map=device_map, 
+            model_name_or_path,
+            device_map=device_map,
             load_in_8bit=True
         )
     else:

@@ -1,7 +1,14 @@
-import regex
 from copy import deepcopy
+
+import regex
 from evaluation.eval.eval_utils import math_equal
-from evaluation.eval.ocwcourses_eval_utils import normalize_numeric, numeric_equality, normalize_symbolic_equation, SymbolicMathMixin
+from evaluation.eval.ocwcourses_eval_utils import (
+    SymbolicMathMixin,
+    normalize_numeric,
+    normalize_symbolic_equation,
+    numeric_equality,
+)
+
 
 def is_correct(item, pred_key='prediction', prec=1e-3):
     pred = item[pred_key]
@@ -35,7 +42,7 @@ def is_correct(item, pred_key='prediction', prec=1e-3):
             label = False
             try:
                 label = abs(float(regex.sub(r',', '', str(pred))) - float(regex.sub(r',', '', str(ans)))) < prec
-            except:
+            except Exception:
                 pass
 
             # if ans == "0.5":
@@ -142,19 +149,19 @@ def eval_ocwcourses(item, pred_key='prediction', prec=1e-3):
     ans = item['answer']
 
     try:
+        # numeric
         float(ans)
         normalize_fn = normalize_numeric
         is_equiv = numeric_equality
-        answer_type = "numeric"
     except ValueError:
         if "=" in ans:
+            # equation
             normalize_fn = normalize_symbolic_equation
             is_equiv = lambda x, y: x==y
-            answer_type = "equation"
         else:
+            # expression
             normalize_fn = SymbolicMathMixin().normalize_tex
             is_equiv = SymbolicMathMixin().is_tex_equiv
-            answer_type = "expression"
 
     correct_answer = normalize_fn(ans)
 
